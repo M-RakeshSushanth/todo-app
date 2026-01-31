@@ -1,0 +1,49 @@
+{% extends 'todo/base.html' %}
+
+{% block content %}
+
+<h2 class="text-2xl font-bold mb-4">
+    {% if task %}Edit Task{% else %}Create Task{% endif %}
+</h2>
+
+{% if error %}
+    <p class="text-red-600 mb-3">{{ error }}</p>
+{% endif %}
+
+<form method="POST" class="bg-white p-6 rounded shadow space-y-4">
+    {% csrf_token %}
+
+    <div>
+        <label class="block font-medium">Title</label>
+        <input type="text" name="title"
+               value="{{ task.title|default:'' }}"
+               class="w-full border rounded px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300">
+    </div>
+
+    <div>
+        <label class="block font-medium">Description</label>
+        <textarea name="description"
+                  class="w-full border rounded px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300">{{ task.description|default:'' }}</textarea>
+    </div>
+
+    {% if task %}
+        <div class="flex items-center space-x-2">
+            <input type="checkbox" name="completed"
+                   class="h-4 w-4"
+                   {% if task.completed %}checked{% endif %}>
+            <label>Completed</label>
+        </div>
+    {% endif %}
+
+    <button type="submit"
+            class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+        Save
+    </button>
+</form>
+
+<a href="{% url 'todo:task_list' %}"
+   class="inline-block mt-4 text-blue-600 hover:underline">
+    ⬅ Back
+</a>
+
+{% endblock %}

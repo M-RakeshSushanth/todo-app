@@ -1,0 +1,40 @@
+{% extends 'todo/base.html' %}
+
+{% block content %}
+
+<div class="flex justify-end mb-4">
+    <a href="{% url 'todo:task_create' %}"
+       class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+        ➕ Add Task
+    </a>
+</div>
+
+<ul class="space-y-3">
+    {% for t in task %}
+        <li class="bg-white p-4 rounded shadow flex justify-between items-center">
+            <div>
+                <p class="{% if t.completed %}line-through text-gray-500{% endif %} font-semibold">
+                    {{ t.title }}
+                </p>
+                <p class="text-sm text-gray-500">{{ t.description }}</p>
+            </div>
+
+            <div class="flex items-center space-x-3">
+                <a href="{% url 'todo:task_toggle_complete' t.id %}"
+                   class="text-green-600 hover:underline">
+                    {% if t.completed %}Undo{% else %}Done{% endif %}
+                </a>
+
+                <a href="{% url 'todo:task_update' t.id %}"
+                   class="text-blue-600 hover:underline">Edit</a>
+
+                <a href="{% url 'todo:task_delete' t.id %}"
+                   class="text-red-600 hover:underline">Delete</a>
+            </div>
+        </li>
+    {% empty %}
+        <li class="text-center text-gray-500">No tasks available</li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
