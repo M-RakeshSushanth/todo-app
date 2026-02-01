@@ -13,10 +13,13 @@
     {% for t in task %}
         <li class="bg-white p-4 rounded shadow flex justify-between items-center">
             <div>
-                <p class="{% if t.completed %}line-through text-gray-500{% endif %} font-semibold">
-                    {{ t.title }}
-                </p>
-                <p class="text-sm text-gray-500">{{ t.description }}</p>
+                <p class="font-semibold {% if t.completed %}line-through text-gray-500{% endif %}">
+    {{ t.title }}
+</p>
+
+<pre class="text-sm text-gray-500 whitespace-pre-wrap">
+{{ t.description }}
+</pre>
             </div>
 
             <div class="flex items-center space-x-3">
