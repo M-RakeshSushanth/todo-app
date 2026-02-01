@@ -74,6 +74,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'todoproject.wsgi.application'
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://*.up.railway.app",
+]
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
